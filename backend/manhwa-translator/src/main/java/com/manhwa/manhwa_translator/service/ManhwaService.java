@@ -1,15 +1,5 @@
 package com.manhwa.manhwa_translator.service;
 
-import com.manhwa.manhwa_translator.util.OpenCVUtils;
-import com.manhwa.manhwa_translator.wrapper.OCRResult;
-import lombok.RequiredArgsConstructor;
-import net.sourceforge.tess4j.ITesseract;
-import org.opencv.core.Mat;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
-import org.springframework.stereotype.Service;
-
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +7,18 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.Semaphore;
+
+import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+import org.springframework.stereotype.Service;
+
+import com.manhwa.manhwa_translator.util.OpenCVUtils;
+import com.manhwa.manhwa_translator.wrapper.OCRResult;
+
+import lombok.RequiredArgsConstructor;
+import net.sourceforge.tess4j.ITesseract;
 
 @Service
 @RequiredArgsConstructor
@@ -53,7 +55,7 @@ public class ManhwaService {
             Imgproc.rectangle(annotated, rect, new Scalar(0, 255, 0), 2);
         }
 
-        Semaphore semaphore = new Semaphore(4);
+        Semaphore semaphore = new Semaphore(1);
         List<Future<OCRResult>> futures = new ArrayList<>();
 
         for (int i = 0; i < bubbles.size(); i++) {
