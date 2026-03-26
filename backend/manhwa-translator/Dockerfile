@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y libgl1
 
 COPY . .
 
+RUN chmod +x gradlew
+
 RUN ./gradlew build -x test
 
 EXPOSE 8080
