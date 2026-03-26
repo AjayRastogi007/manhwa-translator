@@ -168,7 +168,7 @@ async function translateImage(img) {
 
         const translated = await Promise.race([
             sendToBackendUrl(img),
-            new Promise(resolve => setTimeout(() => resolve(null), 42000))
+            new Promise(resolve => setTimeout(() => resolve(null), 62000))
         ]);
 
         if (!translated) {

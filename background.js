@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         const timeout = setTimeout(() => {
             console.warn("⏰ Timeout fallback");
             safeSend({ base64: null });
-        }, 40000);
+        }, 60000);
 
         fetch("https://manhwa-translator.onrender.com/api/translate-url", {
             method: "POST",
