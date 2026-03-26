@@ -61,10 +61,7 @@ function observeImages() {
     images.forEach(img => {
 
         if (img.dataset.translated === "true") return;
-
-        if (img.dataset.queued === "1" && img.dataset.translated !== "true") {
-            img.dataset.queued = "0";
-        }
+        if (img.dataset.queued === "1") return;
 
         if (img.complete) {
             if (isValidManhwaImage(img)) {
@@ -157,17 +154,13 @@ function overlayImage(originalImg, translatedBlob) {
 
 async function translateImage(img) {
     if (!ENABLED) return;
+    if (img.dataset.translated === "true") return;
 
     try {
         const url = img.src;
 
         if (cache.has(url)) {
             overlayImage(img, cache.get(url));
-
-            setTimeout(() => {
-                if (ENABLED) observer.observe(img);
-            }, 1000);
-
             return;
         }
 
@@ -191,9 +184,6 @@ async function translateImage(img) {
 
         cache.set(url, translated);
         overlayImage(img, translated);
-        setTimeout(() => {
-            if (ENABLED) observer.observe(img);
-        }, 2000);
 
     } catch (e) {
         console.error("Translate pipeline failed:", e);
@@ -266,4 +256,4 @@ setInterval(() => {
         console.log("🛠 Watchdog re-trigger");
         observeImages();
     }
-}, 3000);
+}, 10000);
