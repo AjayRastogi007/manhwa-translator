@@ -167,7 +167,7 @@ async function translateImage(img) {
             setTimeout(() => {
                 if (ENABLED) observer.observe(img);
             }, 1000);
-            
+
             return;
         }
 
@@ -175,7 +175,7 @@ async function translateImage(img) {
 
         const translated = await Promise.race([
             sendToBackendUrl(img),
-            new Promise(resolve => setTimeout(() => resolve(null), 26000))
+            new Promise(resolve => setTimeout(() => resolve(null), 42000))
         ]);
 
         if (!translated) {
